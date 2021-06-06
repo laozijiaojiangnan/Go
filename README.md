@@ -1,2 +1,2 @@
-# go_study
+# GoStudy
 go基础学习
