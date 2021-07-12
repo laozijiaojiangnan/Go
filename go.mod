@@ -1,3 +1,3 @@
-module oldboy
+module gostudy
 
 go 1.16
