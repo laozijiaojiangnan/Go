@@ -1,0 +1,85 @@
+package manager
+
+import (
+	"fmt"
+	"net"
+
+	"gostudy/work/day08/utils"
+)
+
+// RunClient 运行客户端
+func RunClient() {
+	conn, err := net.Dial(utils.NetWork, utils.Address)
+	if err != nil {
+		panic(err)
+	}
+	defer conn.Close()
+
+	username := string(Scan())
+	manager := NewClientManager(conn, username)
+	// 接受数据
+	go manager.Read()
+	// 登录
+	manager.Login(username)
+	// 开始聊天
+	manager.Write()
+}
+
+type ClientManager struct {
+	conn     net.Conn
+	username string
+}
+
+func (c ClientManager) Read() {
+	for {
+		message := make([]byte, 1024)
+		n, err := c.conn.Read(message)
+		if err != nil {
+			return
+		}
+		message = message[:n]
+		fmt.Println(string(message))
+	}
+}
+
+func (c ClientManager) Write() {
+	for {
+		content := string(Scan())
+		data := Marshal(utils.Chat, content, c.username)
+
+		_, err := c.conn.Write(data)
+		if err != nil {
+			panic(err)
+		}
+	}
+}
+
+func (c ClientManager) Login(username string) {
+	data := Marshal(utils.Login, "", username)
+
+	_, err := c.conn.Write(data)
+	if err != nil {
+		panic(err)
+	}
+}
+
+func NewClientManager(conn net.Conn, username string) *ClientManager {
+	return &ClientManager{
+		conn:     conn,
+		username: username,
+	}
+}
+
+type Message struct {
+	Type     string `json:"type"`     // 消息类型
+	Content  string `json:"content"`  // 消息内容
+	Username string `json:"username"` // 用户名
+}
+
+func NewMessage(t, connect, username string) *Message {
+	return &Message{
+		Type:     t,
+		Content:  connect,
+		Username: username,
+	}
+}
