@@ -32,7 +32,7 @@ type ClientManager struct {
 	username string
 }
 
-func (c ClientManager) Read() {
+func (c *ClientManager) Read() {
 	for {
 		message := make([]byte, 1024)
 		n, err := c.conn.Read(message)
@@ -44,7 +44,7 @@ func (c ClientManager) Read() {
 	}
 }
 
-func (c ClientManager) Write() {
+func (c *ClientManager) Write() {
 	for {
 		content := string(Scan())
 		data := Marshal(utils.Chat, content, c.username)
@@ -56,7 +56,7 @@ func (c ClientManager) Write() {
 	}
 }
 
-func (c ClientManager) Login(username string) {
+func (c *ClientManager) Login(username string) {
 	data := Marshal(utils.Login, "", username)
 
 	_, err := c.conn.Write(data)

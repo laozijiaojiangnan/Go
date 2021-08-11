@@ -120,7 +120,7 @@ func (s *ServerManager) RemoveConn(conn net.Conn) {
 }
 
 // ListeningExit 监听退出
-func (s ServerManager) ListeningExit() {
+func (s *ServerManager) ListeningExit() {
 	for {
 		select {
 		case <-s.exitSignal:
@@ -131,7 +131,7 @@ func (s ServerManager) ListeningExit() {
 }
 
 // OnlineNames 在线人员名称
-func (s ServerManager) OnlineNames() string {
+func (s *ServerManager) OnlineNames() string {
 	names := ""
 	for _, co := range s.connMap {
 		names += co.username + ","
