@@ -3,20 +3,16 @@ package manager
 import (
 	"bufio"
 	"encoding/json"
-	"fmt"
 	"os"
 )
 
 func Scan() []byte {
-	fmt.Println("请输入用户名")
-
 	reader := bufio.NewReader(os.Stdin)
-	data := make([]byte, 1024)
-	n, err := reader.Read(data)
+	data, _, err := reader.ReadLine()
 	if err != nil {
 		panic(err)
 	}
-	return data[:n]
+	return data
 }
 
 func Marshal(t, text, username string) []byte {

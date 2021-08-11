@@ -32,7 +32,7 @@ func (f *FileControl) GetMark() bool {
 }
 
 func (f *FileControl) OpenFile() []byte {
-	file, err := os.OpenFile(f.Path, os.O_APPEND|os.O_WRONLY, os.ModeAppend)
+	file, err := os.OpenFile(f.Path, os.O_RDWR, 0644)
 	if err != nil && os.IsNotExist(err) {
 		file, _ = os.Create(f.Path)
 	}
@@ -45,8 +45,8 @@ func (f *FileControl) OpenFile() []byte {
 	return data
 }
 
-func (f *FileControl) WriteFile() {
-	fileContent := NewFileContent(true)
+func (f *FileControl) WriteFile(b bool) {
+	fileContent := NewFileContent(b)
 	data, err := json.Marshal(fileContent)
 	if err != nil {
 		panic(err)

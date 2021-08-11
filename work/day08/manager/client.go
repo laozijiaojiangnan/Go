@@ -9,12 +9,14 @@ import (
 
 // RunClient 运行客户端
 func RunClient() {
+	fmt.Println("客户端启动")
 	conn, err := net.Dial(utils.NetWork, utils.Address)
 	if err != nil {
 		panic(err)
 	}
 	defer conn.Close()
 
+	fmt.Print("输入用户名:")
 	username := string(Scan())
 	manager := NewClientManager(conn, username)
 	// 接受数据
