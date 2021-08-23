@@ -15,3 +15,5 @@
 # vendor/
 jn.go
 .idea/
+
+gorm/init_table/bin/datas/
