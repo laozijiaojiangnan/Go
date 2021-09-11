@@ -19,11 +19,11 @@ func main() {
 		第一种情况:
 			都支持为空了，这个 ErrNoRows 可以直接忽略
 		第二种情况:
-			我举得应该使用 Wrap 来处理错误，因为可以加额外的信息，比如什么样的数据是空，而不是只告诉ta查询为空
+			我举得应该使用 Wrap 来处理错误，因为可以加额外的信息，比如什么样的数据为空，而不是只告诉ta查询为空
 			这也是为了调用者考虑，如果ta想打印日志，这时候的信息是非常完整的
 	*/
 
-	ret, err := GetUsers()
+	ret, err := GetUser()
 	if err != nil {
 		e := ErrNoRows{}
 		if errors.As(err, &e) {
@@ -35,7 +35,7 @@ func main() {
 	fmt.Println(ret)
 }
 
-func GetUsers() ([]int, error) {
+func GetUser() ([]int, error) {
 	ret, err := query()
 	if err != nil {
 		return nil, errors.Wrap(err, "未找到用户")
