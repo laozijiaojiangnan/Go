@@ -16,4 +16,4 @@
 jn.go
 .idea/
 
-gorm/init/bin/datas/
+library/gorm/init/bin/datas/
