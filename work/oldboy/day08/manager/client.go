@@ -2,15 +2,14 @@ package manager
 
 import (
 	"fmt"
+	utils2 "gostudy/work/oldboy/day08/utils"
 	"net"
-
-	"gostudy/work/day08/utils"
 )
 
 // RunClient 运行客户端
 func RunClient() {
 	fmt.Println("客户端启动")
-	conn, err := net.Dial(utils.NetWork, utils.Address)
+	conn, err := net.Dial(utils2.NetWork, utils2.Address)
 	if err != nil {
 		panic(err)
 	}
@@ -47,7 +46,7 @@ func (c *ClientManager) Read() {
 func (c *ClientManager) Write() {
 	for {
 		content := string(Scan())
-		data := Marshal(utils.Chat, content, c.username)
+		data := Marshal(utils2.Chat, content, c.username)
 
 		_, err := c.conn.Write(data)
 		if err != nil {
@@ -57,7 +56,7 @@ func (c *ClientManager) Write() {
 }
 
 func (c *ClientManager) Login(username string) {
-	data := Marshal(utils.Login, "", username)
+	data := Marshal(utils2.Login, "", username)
 
 	_, err := c.conn.Write(data)
 	if err != nil {

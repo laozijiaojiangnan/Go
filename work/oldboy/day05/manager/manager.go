@@ -3,11 +3,10 @@ package manager
 import (
 	"encoding/json"
 	"fmt"
+	"gostudy/work/oldboy/day05/utils"
 	"io"
 	"io/ioutil"
 	"os"
-
-	u "gostudy/work/day05/utils"
 )
 
 type Manager struct {
@@ -40,7 +39,7 @@ func NewManager() *Manager {
 }
 
 func (m Manager) Add() {
-	u.Print("---添加学生中---\n")
+	utils.Print("---添加学生中---\n")
 	var (
 		id, name string
 		ch, en   int
@@ -54,63 +53,63 @@ func (m Manager) Add() {
 		}
 	}
 
-	u.InpAndOut("请输入ID:", &id)
-	u.InpAndOut("请输入姓名:", &name)
-	u.InpAndOut("请输入语文成绩：", &ch)
-	u.InpAndOut("请输入英语成绩：", &en)
+	utils.InpAndOut("请输入ID:", &id)
+	utils.InpAndOut("请输入姓名:", &name)
+	utils.InpAndOut("请输入语文成绩：", &ch)
+	utils.InpAndOut("请输入英语成绩：", &en)
 
 	m.Stus[id] = newStudent(id, name, ch, en)
 
-	u.Print("---添加成功!---\n")
+	utils.Print("---添加成功!---\n")
 }
 
 func (m Manager) Delete() {
-	u.Print("---删除学生中---\n")
+	utils.Print("---删除学生中---\n")
 	var id string
-	u.InpAndOut("输入需要删除的学生ID:", &id)
+	utils.InpAndOut("输入需要删除的学生ID:", &id)
 
 	_, ok := m.Stus[id]
 	if !ok {
-		u.Print("未找到ID对应的学生\n")
+		utils.Print("未找到ID对应的学生\n")
 	} else {
 		delete(m.Stus, id)
-		u.Print("---删除成功---\n")
+		utils.Print("---删除成功---\n")
 	}
 }
 
 func (m Manager) Update() {
-	u.Print("---更新学生中---\n")
+	utils.Print("---更新学生中---\n")
 	var (
 		id, name string
 		ch, en   int
 	)
-	u.InpAndOut("输入需要更新的学生ID:", &id)
+	utils.InpAndOut("输入需要更新的学生ID:", &id)
 
 	student, ok := m.Stus[id]
 	if !ok {
-		u.Print("未找到ID对应的学生\n")
+		utils.Print("未找到ID对应的学生\n")
 	} else {
-		u.InpAndOut("新名称:", &name)
-		u.InpAndOut("新语文成绩:", &ch)
-		u.InpAndOut("新英语成绩:", &en)
+		utils.InpAndOut("新名称:", &name)
+		utils.InpAndOut("新语文成绩:", &ch)
+		utils.InpAndOut("新英语成绩:", &en)
 		student.Update(name, ch, en)
-		u.Print("---更新成功---\n")
+		utils.Print("---更新成功---\n")
 	}
 }
 
 func (m Manager) List() {
 	if len(m.Stus) < 1 {
-		u.Print("---暂时没有学生---\n")
+		utils.Print("---暂时没有学生---\n")
 		return
 	}
 
-	u.Print("------------------------------------------------------\n")
+	utils.Print("------------------------------------------------------\n")
 	for id, stu := range m.Stus {
 		fmt.Printf(
 			"ID:%v, 姓名:%v, 语文:%v, 数学:%v\n", id, stu.Name, stu.Chinese, stu.English,
 		)
 	}
-	u.Print("------------------------------------------------------\n")
+	utils.Print("------------------------------------------------------\n")
 }
 
 func (m Manager) Save() {
@@ -133,5 +132,5 @@ func (m Manager) Save() {
 		return
 	}
 
-	u.Print("---保存数据成功---\n")
+	utils.Print("---保存数据成功---\n")
 }

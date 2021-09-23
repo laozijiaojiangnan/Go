@@ -1,8 +1,8 @@
 package main
 
 import (
-	"gostudy/work/day08/manager"
-	"gostudy/work/day08/utils"
+	manager2 "gostudy/work/oldboy/day08/manager"
+	utils2 "gostudy/work/oldboy/day08/utils"
 )
 
 func main() {
@@ -20,9 +20,9 @@ func main() {
 	并在服务器结束的时候把true改回false
 	*/
 
-	if utils.NewFileControl().GetMark() {
-		manager.RunServer()
+	if utils2.NewFileControl().GetMark() {
+		manager2.RunServer()
 	} else {
-		manager.RunClient()
+		manager2.RunClient()
 	}
 }

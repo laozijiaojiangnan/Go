@@ -2,18 +2,17 @@ package main // 文件版本
 
 import (
 	"fmt"
-
-	"gostudy/work/day05/manager"
-	u "gostudy/work/day05/utils"
+	manager2 "gostudy/work/oldboy/day05/manager"
+	"gostudy/work/oldboy/day05/utils"
 )
 
 func main() {
-	m := manager.NewManager()
-	u.Print(m.HelpText + "\n")
+	m := manager2.NewManager()
+	utils.Print(m.HelpText + "\n")
 
 	var inp string
 	for {
-		u.InpAndOut("请输入编号完成操作:", &inp)
+		utils.InpAndOut("请输入编号完成操作:", &inp)
 		switch inp {
 		case "1":
 			m.List()
@@ -26,9 +25,9 @@ func main() {
 		case "5":
 			m.Save()
 		case "6":
-			u.Exit()
+			utils.Exit()
 		case "7":
-			u.Print(m.HelpText + "\n")
+			utils.Print(m.HelpText + "\n")
 		default:
 			fmt.Print("---请输入正确的编号!---\n")
 		}

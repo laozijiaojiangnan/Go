@@ -1,19 +1,18 @@
 package main
 
 import (
+	"gostudy/work/oldboy/day07"
 	"net"
-
-	work "gostudy/work/day07"
 )
 
 func main() {
-	s, err := net.Listen(work.NetWork, work.Address)
+	s, err := net.Listen(day07.NetWork, day07.Address)
 	if err != nil {
 		panic(err)
 	}
 	defer s.Close()
 
-	manager := work.NewServerManager()
+	manager := day07.NewServerManager()
 	go manager.SendMessage()
 
 	for {

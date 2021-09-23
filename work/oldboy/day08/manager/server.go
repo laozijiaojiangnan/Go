@@ -3,26 +3,25 @@ package manager
 import (
 	"errors"
 	"fmt"
+	utils2 "gostudy/work/oldboy/day08/utils"
 	"io"
 	"net"
 	"os"
 	"os/signal"
 	"strings"
-
-	"gostudy/work/day08/utils"
 )
 
 // RunServer 启动聊天服务器
 func RunServer() {
 	fmt.Println("服务器启动")
-	s, err := net.Listen(utils.NetWork, utils.Address)
+	s, err := net.Listen(utils2.NetWork, utils2.Address)
 	if err != nil {
 		panic(err)
 	}
 	defer s.Close()
 
 	// 更新文件信息
-	utils.NewFileControl().WriteFile(false)
+	utils2.NewFileControl().WriteFile(false)
 
 	manager := NewServerManager()
 	go manager.SendMessage()
@@ -96,7 +95,7 @@ func (s *ServerManager) GenerateMessage(conn net.Conn, data []byte) []byte {
 	message := UnMarshal(data)
 
 	tx := fmt.Sprintf("[%s]:%s", message.Username, message.Content)
-	if message.Type == utils.Login {
+	if message.Type == utils2.Login {
 		// 处理登录消息
 		connect := NewConnect(conn, message.Username)
 		ip := conn.RemoteAddr().String()
@@ -125,7 +124,7 @@ func (s *ServerManager) ListeningExit() {
 		select {
 		case <-s.exitSignal:
 			// 服务端结束，把 mark 改为 true
-			utils.NewFileControl().WriteFile(true)
+			utils2.NewFileControl().WriteFile(true)
 		}
 	}
 }

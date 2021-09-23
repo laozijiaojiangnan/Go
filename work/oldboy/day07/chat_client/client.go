@@ -1,19 +1,18 @@
 package main
 
 import (
+	"gostudy/work/oldboy/day07"
 	"net"
-
-	work "gostudy/work/day07"
 )
 
 func main() {
-	conn, err := net.Dial(work.NetWork, work.Address)
+	conn, err := net.Dial(day07.NetWork, day07.Address)
 	if err != nil {
 		panic(err)
 	}
 	defer conn.Close()
 
-	manager := work.NewClientManager(conn)
+	manager := day07.NewClientManager(conn)
 
 	// 接受数据
 	go manager.Read()
